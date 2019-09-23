@@ -20,7 +20,7 @@ import pdb
 plt.close('all')
 
 window_size = 5
-dataPath  = r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites\CLMB GWAS 2019 Flight Data\100086_2019_07_18_16_55_39'
+dataPath  = r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites\CLMB STND 2019 Flight Data\100084_2019_06_25_16_39_57'
 hdrPath   = dataPath.replace(r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites', r'T:\AnalysisDroneData\ReflectanceCube\ReadableHDR')
 hyperPath = dataPath.replace(r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites', r'T:\AnalysisDroneData\ReflectanceCube\MATdataCube')
 
@@ -261,5 +261,4 @@ for f in list_file:
     pickle.dump(indices, open(os.path.join(indexPath, '{}_VI.pkl'.format(f_)), 'wb'))
     
     plt.close('all')
-#    pdb.set_trace()
     
