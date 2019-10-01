@@ -8,7 +8,7 @@ import os
 import pandas as pd
 
 path_all     = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB STND 2019 Flight Data'
-path_VI      = r'{}\100081_2019_06_11_17_57_06'.format(path_all)
+path_VI      = r'{}\100085_2019_07_18_15_54_58'.format(path_all)
 path_greenup = r'{}\greenup_related'.format(path_all)
 name_VI      = 'VI_summary.csv'
 name_greenup = 'CLMB_STND_2019_Master Data_Working.xlsx'

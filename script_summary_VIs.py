@@ -20,7 +20,7 @@ import pdb
 
 plt.close('all')
 
-viPath = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB STND 2019 Flight Data\100081_2019_06_11_17_57_06'
+viPath = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB STND 2019 Flight Data\100085_2019_07_18_15_54_58'
 idPath = viPath.replace(r'ReflectanceCube\indices', 'groundTruth')
 idPath = idPath + r'\id_processed'
 

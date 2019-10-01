@@ -36,7 +36,7 @@ import pdb
 #    ID = str(num) + letter
 #    return ID
 
-id_path = r'T:\AnalysisDroneData\groundTruth\CLMB STND 2019 Flight Data\100081_2019_06_11_17_57_06\id_processed'
+id_path = r'T:\AnalysisDroneData\groundTruth\CLMB STND 2019 Flight Data\100085_2019_07_18_15_54_58\id_processed'
 filelist = [f for f in os.listdir(os.path.join(id_path)) if f.endswith('.mat')]
 
 # get the correct order of files
