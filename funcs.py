@@ -29,12 +29,13 @@ def transfer(numID):
         letter = 'E'
     elif letter_ == 6:
         letter = 'F'
-    ID = letter + str(num)
+    ID = str(num) + letter
     return ID
 
 def reverse_transfer(ID):
-    letter = ID[0]
-    number = ID[1]
+    number = ID[0]
+    letter = ID[1]
+    
     if letter is 'A':
         num = 1
     elif letter is 'B':

@@ -9,33 +9,34 @@ import scipy.io as sio
 import numpy as np
 import pandas as pd
 import re
+import funcs
 import pdb
 
-def transfer(numID):
-    letter_ = numID%6
-    if letter_ == 0:
-        letter_ = 6
-        num = int((numID-6)/6)+1
-    else:
-        num     = int(numID/6)+1
-    
-#    print(letter_)
-    if letter_ == 1:
-        letter = 'A'
-    elif letter_ == 2:
-        letter = 'B'
-    elif letter_ == 3:
-        letter = 'C'
-    elif letter_ == 4:
-        letter = 'D'
-    elif letter_ == 5:
-        letter = 'E'
-    elif letter_ == 6:
-        letter = 'F'
-    ID = letter + str(num)
-    return ID
+#def transfer(numID):
+#    letter_ = numID%6
+#    if letter_ == 0:
+#        letter_ = 6
+#        num = int((numID-6)/6)+1
+#    else:
+#        num     = int(numID/6)+1
+#    
+##    print(letter_)
+#    if letter_ == 1:
+#        letter = 'A'
+#    elif letter_ == 2:
+#        letter = 'B'
+#    elif letter_ == 3:
+#        letter = 'C'
+#    elif letter_ == 4:
+#        letter = 'D'
+#    elif letter_ == 5:
+#        letter = 'E'
+#    elif letter_ == 6:
+#        letter = 'F'
+#    ID = str(num) + letter
+#    return ID
 
-id_path = r'T:\AnalysisDroneData\groundTruth\CLMB STND 2019 Flight Data\100084_2019_06_25_16_39_57\id_processed'
+id_path = r'T:\AnalysisDroneData\groundTruth\CLMB STND 2019 Flight Data\100081_2019_06_11_17_57_06\id_processed'
 filelist = [f for f in os.listdir(os.path.join(id_path)) if f.endswith('.mat')]
 
 # get the correct order of files
@@ -46,7 +47,7 @@ for f in filelist:
 index_temp = np.argsort(list_frame_idx_hyper)
 file_list = [filelist[i] for i in index_temp]
 
-plot_list = [transfer(i) for i in range(1,37)]
+plot_list = [funcs.transfer(i) for i in range(1,37)]
 col = [re.findall('\d+', f)[0] for f in file_list]
 row = plot_list
 
@@ -66,7 +67,7 @@ for f in file_list:
     plot_name = plot_name[plot_name!=0]
     
     for idx, i_name in enumerate(plot_name):
-        plt_id = transfer(i_name)
+        plt_id = funcs.transfer(i_name)
         df_summary.loc[plt_id, re.findall('\d+', f)[0]] = counts[idx]
        
 df_summary.to_csv(os.path.join(id_path, 'summary.csv'), index = True, encoding = 'latin-1')

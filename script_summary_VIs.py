@@ -20,7 +20,7 @@ import pdb
 
 plt.close('all')
 
-viPath = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB STND 2019 Flight Data\100084_2019_06_25_16_39_57'
+viPath = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB STND 2019 Flight Data\100081_2019_06_11_17_57_06'
 idPath = viPath.replace(r'ReflectanceCube\indices', 'groundTruth')
 idPath = idPath + r'\id_processed'
 
@@ -30,6 +30,7 @@ pixelsum    = plotID_info.sum(axis=1)
 
 # Define the final result dataframe
 list_plotIDs = plotID_info.index.values.tolist()
+list_plotIDs = ['MO.{}'.format(i) for i in list_plotIDs]
 list_VIs     = ['ACI', 'ARI', 'CARI', 'CI_red_edge', 'EVI', 'MARI', 'MCARI', 'MTCI', 'NDVI', 
                 'PRI', 'RGRI', 'RVSI', 'SIPI', 'SR','VARI', 'VI_green', 'WBI']
 df_summary = pd.DataFrame(columns = list_VIs, index = list_plotIDs)
@@ -67,10 +68,10 @@ for idx, f in enumerate(list_file):
             vi_mat = vis[vi]
             vi_mat_ = vi_mat*id_map
             
-            if pd.isna(df_summary.loc[id_idx, vi]):
-                df_summary.loc[id_idx, vi] = sum(sum(vi_mat_))/pixelsum[id_idx]
+            if pd.isna(df_summary.loc['MO.{}'.format(id_idx), vi]):
+                df_summary.loc['MO.{}'.format(id_idx), vi] = sum(sum(vi_mat_))/pixelsum[id_idx]
             else:
 #                pdb.set_trace()
-                df_summary.loc[id_idx, vi] += sum(sum(vi_mat_))/pixelsum[id_idx]
+                df_summary.loc['MO.{}'.format(id_idx), vi] += sum(sum(vi_mat_))/pixelsum[id_idx]
 df_summary.to_csv(os.path.join(viPath, 'VI_summary.csv'), index = True, encoding = 'Latin-1')
        

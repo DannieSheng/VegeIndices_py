@@ -20,7 +20,7 @@ import pdb
 plt.close('all')
 
 window_size = 5
-dataPath  = r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites\CLMB STND 2019 Flight Data\100084_2019_06_25_16_39_57'
+dataPath  = r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites\CLMB STND 2019 Flight Data\100085_2019_07_18_15_54_58'
 hdrPath   = dataPath.replace(r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites', r'T:\AnalysisDroneData\ReflectanceCube\ReadableHDR')
 hyperPath = dataPath.replace(r'T:\Box2\Drone Flight Data and Reference Files\Flight Data - All Sites', r'T:\AnalysisDroneData\ReflectanceCube\MATdataCube')
 
@@ -70,6 +70,7 @@ h[1,1] = 0
 
 ## loop over all images
 for f in list_file:
+    pdb.set_trace()
     indices = dict()
     R = dict()
     data = hdf5storage.loadmat(os.path.join(hyperPath, f))['data']
@@ -80,6 +81,7 @@ for f in list_file:
 #    R_wv = {}
     for wv in list_wv:
         R[wv] = np.average(data[:,:,idx_wv[wv]], axis = 2)
+    pdb.set_trace()
         
     # getting rid of the "divided by zero" issue
     for key in R.keys():
@@ -88,6 +90,7 @@ for f in list_file:
            R_temp          = filters.correlate(R[key], h)
            R[key][id_temp] = R_temp[id_temp]
            id_temp         = np.where(R[key] == 0)[0]
+    pdb.set_trace()
            
     # ACI
     indices['ACI'] = R['green']/R['nir']
