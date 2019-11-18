@@ -25,15 +25,20 @@ for (idx, geno) in enumerate(list_geno):
     cond = df_greenup['GENO'] == geno
     df_geno = df_greenup.loc[cond,:]
     list_loc = df_geno['PLOT_LC']
-    fig = plt.figure()
+#    fig= plt.figure(figsize=(12,8))
+    fig, ax = plt.subplots(figsize=(13,10))
     for loc in list_loc:
         cond1 = df_geno['PLOT_LC'] == loc
 #        gr = df_geno.loc[cond1, ['GREEN1', 'GREEN50', 'GREEN100']].values.tolist()[0]
         gr = df_geno.loc[cond1, ['Unnamed: 7', 'Unnamed: 9', 'Unnamed: 11']].astype(datetime).values.tolist()[0]
         plt.plot(gr, greenup_rate, '^-', label = loc)
 #        axs[idx].plot(gr, greenup_rate, '^-', label = loc)
-    plt.title('Green up information for {}'.format(geno))
+    ax.tick_params(labelsize=12)
+    plt.title('Green up information for {}'.format(geno), fontsize = 20)
     plt.legend(loc = 'best')
-    pl.xticks(rotation=45)
-    pl.yticks(rotation=45)
+    pl.xticks(rotation=40)
+    pl.yticks(rotation=55)
+    
+    plt.savefig(os.path.join(path_greenup, '{}.png'.format(geno)))
 #    pdb.set_trace()
+#    
