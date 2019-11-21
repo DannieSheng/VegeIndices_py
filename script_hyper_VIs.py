@@ -70,6 +70,11 @@ h[1,1] = 0
 
 ## loop over all images
 for f in list_file:
+    cube_name = re.findall('\d+', f)[0]  
+    path_f    = indexPath + '\\' + cube_name 
+    if not os.path.exists(path_f):
+        os.makedirs(path_f)
+    
 #    pdb.set_trace()
     indices = dict()
     R = dict()
@@ -85,15 +90,25 @@ for f in list_file:
         
     # getting rid of the "divided by zero" issue
     for key in R.keys():
-        id_temp = np.where(R[key] == 0)[0]
-        while id_temp.size>0:
-           R_temp          = filters.correlate(R[key], h)
-           R[key][id_temp] = R_temp[id_temp]
-           id_temp         = np.where(R[key] == 0)[0]
+#        id_temp = np.where(R[key] == 0)[0]
+#        while id_temp.size>0:
+#           R_temp          = filters.correlate(R[key], h)
+#           R[key][id_temp] = R_temp[id_temp]
+#           id_temp         = np.where(R[key] == 0)[0]
 #    pdb.set_trace()
-           
+        im_key = R[key]
+        with open(os.path.join(path_f, '{}.pkl'.format(key)), 'wb') as f:
+            pickle.dump(im_key, f)
+        fig, axs = plt.subplots(1,1)
+        im = axs.imshow(im_key)
+        axs.set_title(key)
+        plt.axis('off')
+        plt.savefig(os.path.join(path_f, '{}.png'.format(key)))
+     
+    #### all VIs
     # ACI
     indices['ACI'] = R['green']/R['nir']
+    pdb.set_trace()
     fig, axs = plt.subplots(1,1)
     im = axs.imshow(indices['ACI'])
     axs.set_title('Anthocyanin Content Index')
