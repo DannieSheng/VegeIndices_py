@@ -13,7 +13,7 @@ import pdb
 path_greenup = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\greenup_related'
 name_greenup = 'CLMB_GWAS_2019_Greenup Data.xlsx'
 df_greenup   = pd.read_excel(os.path.join(path_greenup, name_greenup))
-path_indices  = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\100083_2019_06_25_15_59_59'
+path_indices  = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\100086_2019_07_18_16_55_39'
 name_indices  = 'VI_indices_all.xlsx'
 xl_indices    = pd.ExcelFile(os.path.join(path_indices, name_indices))
 output_writer = pd.ExcelWriter(os.path.join(path_indices, name_indices), engine="openpyxl", mode = 'a')
