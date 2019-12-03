@@ -17,15 +17,15 @@ import pdb
 
 def rotate_mat(cube_name, list_rotate, mat):
     if cube_name in list_rotate:
-        mat = np.rot90(mat)
+        mat = np.rot90(mat, k = -1) # rotate 270 degrees counterclockwise (90 degrees clockwise)
     else:
-        mat = np.rot90(mat, k = 3)
+        mat = np.rot90(mat, k = 1) # rotate 90 degrees counterclockwise 
     return mat
     
 
-path_VI        = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\100083_2019_06_25_15_59_59'
-path_gt        = path_VI.replace(r'ReflectanceCube\indices', 'groundTruth')
-path_detected  = path_gt + r'\gt_map'
+path_VI       = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\100086_2019_07_18_16_55_39'
+path_gt       = path_VI.replace(r'ReflectanceCube\indices', 'groundTruth')
+path_detected = path_gt + r'\gt_map'
 
 path_greenup = r'T:\AnalysisDroneData\ReflectanceCube\indices\CLMB GWAS 2019 Flight Data\greenup_related'
 name_greenup = 'CLMB_GWAS_2019_Greenup Data.xlsx'
@@ -34,7 +34,8 @@ df_greenup   = pd.read_excel(os.path.join(path_greenup, name_greenup), sheet_nam
 # list of all files with ground truth
 list_file_temp = [f for f in os.listdir(path_gt) if f.endswith('.mat')]
 
-list_rotate = ['612', '2612', '4612', '10336', '12336', '14336', '19975', '21975', '23975', '29393', '31393', '33393', '39100', '41100', '43100', '48433', '50433', '52433']
+#list_rotate = ['612', '2612', '4612', '10336', '12336', '14336', '19975', '21975', '23975', '29393', '31393', '33393', '39100', '41100', '43100', '48433', '50433', '52433'] #0625
+list_rotate = ['4351', '6351', '8351', '14618', '16618', '18618', '24699', '26699', '28699', '34916', '36916', '38916', '45131', '47131', '49131', '55297', '57297', '59297'] #0718
 
     # get the correct order of all files
 list_file = []
@@ -52,16 +53,19 @@ for f in list_file:
     gt       = loaded['gt']
     gt_map = np.zeros(np.shape(gt))
     gt_map[np.where(gt>0)] = 1
-    
-    name_detected = 'gt_map_' + cube_name + '_temp.mat'
-    loaded        = sio.loadmat(os.path.join(path_detected, name_detected), squeeze_me = True)
-    detected      = loaded['detected']
-    
-    added      = gt_map - detected
-    added_gt   = added*gt
-    list_added = [str(int(i)) for i in np.unique(added_gt)]
-    list_added.remove('0')
+
+    ##
+#    name_detected = 'gt_map_' + cube_name + '_temp.mat'
+#    loaded        = sio.loadmat(os.path.join(path_detected, name_detected), squeeze_me = True)
+#    detected      = loaded['detected']
+#    
+#    added      = gt_map - detected
+#    added_gt   = added*gt
+#    list_added = [str(int(i)) for i in np.unique(added_gt)]
+#    list_added.remove('0')
 #    pdb.set_trace()
+    
+    ##
     f_VI     = 'raw_' + cube_name + '_VI.pkl'
     indices  = pickle.load(open(os.path.join(path_VI, f_VI), 'rb'))
     list_VI  = list(indices.keys())
@@ -81,10 +85,10 @@ for f in list_file:
         idx = np.where(gt == loca)
         
         # indicate whether added by hand
-        if str(loca) in list_added:
-            df_summary.loc['C'+str(loca), 'added?'] = 1
-        else:
-            df_summary.loc['C'+str(loca), 'added?'] = 0
+#        if str(loca) in list_added:
+#            df_summary.loc['C'+str(loca), 'added?'] = 1
+#        else:
+#            df_summary.loc['C'+str(loca), 'added?'] = 0
         
         # indicate the location in the ground truth matrix
         idx = np.where(gt == loca)
